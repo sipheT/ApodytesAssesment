@@ -1,0 +1,92 @@
+{% extends "quadratic-equations/base.html" %}
+{% block content %}
+    <div class="container ml-10">
+        <h4>Enter quadratic equation in standard form below:</h4>
+        <div class="form-group row mt-10">
+            <form class="form-inline" action="/solve/" method="POST"> {% csrf_token %}
+                <div class="row ml-4">
+                    <input type="number" class="input-text" name="a">
+                    <span class="ml-1"><strong>x<sup>2</sup></strong></span>
+                </div>
+                <div class="row ml-4">
+                    <input type="number" class="input-text" name="b">
+                    <span class="ml-1"><strong>x</strong></span>
+                </div>
+                <div class="row ml-4">
+                    <input type="number" class="input-text" name="c">
+                </div>
+                <div class="row ml-4">
+                    <label><strong> = 0</strong> </label>
+                </div>
+                <div class="row ml-4">
+                    <input type="submit" class="btn-success" value="Solve">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if a == 0 %}
+        <div class="alert alert-danger" role="alert">
+            The value of a must be greater than zero!
+        </div>
+    {% else %}
+    <div class="container ml-10 mt-15">
+        <div class="row">
+            <h5>Solution:</h5>
+        </div>
+        {% if 0 > d %}
+            <div class="row">
+                    <p>
+                        <strong>
+                            From the equation we have a = {{a}}, b = {{b}} and c = {{c}} so the discriminant is:<br>                 
+                            discriminant = ({{b}})<sup>2</sup> - 4*{{a}}*{{c}} = {{d}} < 0 so the equation has complex roots
+                        </strong>
+                    </p>
+            </div>
+        {% endif %}
+        {% if d > 0 %}
+            <div class="row">
+                <p>
+                    <strong>
+                        From the equation we have a = {{a}}, b = {{b}} and c = {{c}} so the discriminant is:<br> 
+                        discriminant = ({{b}})<sup>2</sup> - 4*{{a}}*{{c}} = {{d}} > 0 so the equation has two different solutions<br> 
+                        Using the quadratic formula which is:<br>
+                        x = -b+-&#8730(b<sup>2</sup> - 4ac) / 2a we get
+                        <br>
+                        x = -{{b}}+-&#8730(({{b}})<sup>2</sup> - 4*{{a}}*{{c}}) /
+                            2*{{a}}
+                        <br>
+                        x = -{{b}}+-&#8730({{d}}) /
+                            {{denominator}} ,
+                        <br>     
+                        x = -{{b}}+&#8730({{d}}) / {{denominator}} or x = -{{b}}-&#8730({{d}}) / {{denominator}} ,
+                        <br> 
+                        Therefore, x = {{sol1}} or x = {{sol2}}
+                    </strong>
+                </p>
+            </div>
+        {% endif %}
+        {% if d == 0 %}
+            <div class="row">
+                <p>
+                    <strong>
+                        From the equation we have a = {{a}}, b = {{b}} and c = {{c}} so the discriminant is:<br> 
+                        discriminant = ({{b}})<sup>2</sup> - 4*{{a}}*{{c}} = {{d}} = 0 so the equation has one solutions<br> 
+                        Using the quadratic formula which is:<br>
+                        x = -b+-&#8730(b<sup>2</sup> - 4ac) / 2a we get
+                        <br>
+                        x = -{{b}}+-&#8730(({{b}})<sup>2</sup> - 4*{{a}}*{{c}}) /
+                            2*{{a}}
+                        <br>
+                        x = -{{b}}+-&#8730({{d}}) /
+                            {{denominator}} ,
+                        <br>     
+                        x = -{{b}}+&#8730({{d}}) / {{denominator}} or x = -{{b}}-&#8730({{d}}) / {{denominator}} ,
+                        <br> 
+                        Therefore, x = {{sol1}} 
+                    </strong>
+                </p>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock content %}
